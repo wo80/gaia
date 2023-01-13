@@ -1,0 +1,14 @@
+target_sources(gaia
+  PRIVATE
+    ap.cpp
+    chisquaredistr.cpp
+    gammaf.cpp
+    igammaf.cpp
+    normaldistr.cpp
+  PUBLIC
+    ap.h
+    apvt.h
+    chisquaredistr.h
+    gammaf.h
+    igammaf.h
+    normaldistr.h)
