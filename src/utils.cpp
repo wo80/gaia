@@ -17,7 +17,7 @@
  * version 3 along with this program.  If not, see http://www.gnu.org/licenses/
  */
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <cmath>
 #include <algorithm>
 #ifndef _WIN32
@@ -355,9 +355,11 @@ PointLayout mergeLayouts(const PointLayout& layout1, const PointLayout& layout2)
   if (layout1.isEmpty()) return layout2.copy();
   if (layout2.isEmpty()) return layout1.copy();
 
+  QStringList names1 = layout1.descriptorNames();
+  QStringList names2 = layout2.descriptorNames();
   // first check that we don't overlap
-  QSet<QString> d1 = layout1.descriptorNames().toSet();
-  QSet<QString> d2 = layout2.descriptorNames().toSet();
+  QSet<QString> d1(names1.begin(), names1.end());
+  QSet<QString> d2(names2.begin(), names2.end());
   if (!d1.intersect(d2).isEmpty()) {
     QStringList msg("Cannot merge layouts because they have these descriptors in common:");
     foreach (QString desc, d1) msg << " " << desc;
@@ -616,12 +618,12 @@ QString formatDimensionParticipation(const QList<QPair<double, QString> >& parti
 
 QMap<QString, QList<int> > dimensionListToMapping(const QStringList& dims) {
   QMap<QString, QList<int> > result;
-  QRegExp rexp("^(.*)\\[(\\d*)\\]$");
+  QRegularExpression rexp("^(.*)\\[(\\d*)\\]$");
 
   foreach (QString dim, dims) {
-    int pos = rexp.indexIn(dim);
-    if (pos > -1) {
-      result[rexp.cap(1)].append(rexp.cap(2).toInt());
+    QRegularExpressionMatch match = rexp.match(dim);
+    if (match.hasMatch()) {
+      result[match.captured(1)].append(match.captured(2).toInt());
     }
     else {
       throw GaiaException("Invalid dimension name: ", dim);

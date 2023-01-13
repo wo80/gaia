@@ -45,7 +45,7 @@ inline QString mergeName(const QStringList& name) {
  */
 inline QStringList splitName(const QString& name, bool includeRootNode = false) {
   if (includeRootNode) return name.split(NAME_SEPARATOR);
-  return name.split(NAME_SEPARATOR, QString::SkipEmptyParts);
+  return name.split(NAME_SEPARATOR, Qt::SkipEmptyParts);
 }
 
 

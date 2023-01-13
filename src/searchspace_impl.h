@@ -227,7 +227,7 @@ void BaseSearchSpace<SearchPointType, DataSetType>::addPoints(const DataSetType*
 template <typename SearchPointType, typename DataSetType>
 void BaseSearchSpace<SearchPointType, DataSetType>::removePoints(const QList<QString>& ids) {
   QList<int> positionsToRemove;
-  QSet<QString> idSet = QSet<QString>::fromList(ids);
+  QSet<QString> idSet(ids.begin(), ids.end());
 
   // first find positions of all the elements to remove
   for (typename BaseSearchSpace<SearchPointType, DataSetType>::const_iterator it = this->begin(); it != this->end(); ++it) {

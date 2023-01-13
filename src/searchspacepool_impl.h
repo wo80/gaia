@@ -62,7 +62,7 @@ BaseSearchSpace<SearchPointType, DataSetType>* BaseSearchSpacePool<SearchPointTy
   foreach (key, sorted.keys()) {
     stepsSet << key.first << key.second;
   }
-  QList<int> steps = QList<int>::fromSet(stepsSet);
+  QList<int> steps(stepsSet.begin(), stepsSet.end());
   sort(steps);
 
   Q_ASSERT(steps.first() == 0 && steps.last() == sspace->size());

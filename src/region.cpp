@@ -159,7 +159,7 @@ void Region::checkTypeOnlyFrom(DescriptorType type, const PointLayout* layout) c
   if (wrongType.isEmpty()) return;
 
   QStringList msg;
-  msg << "Region contains segments (" << QStringList(QStringList::fromSet(wrongType)).join(", ") << ") "
+  msg << "Region contains segments (" << QStringList(wrongType.begin(), wrongType.end()).join(", ") << ") "
       << "which are not from " << typeToString(type) << " type";
   throw GaiaException(msg);
 }
@@ -187,7 +187,7 @@ void Region::checkLengthTypeOnlyFrom(DescriptorLengthType ltype, const PointLayo
   if (wrongLengthType.isEmpty()) return;
 
   QStringList msg;
-  msg << "Region contains segments (" << QStringList(QStringList::fromSet(wrongLengthType)).join(", ") << ") "
+  msg << "Region contains segments (" << QStringList(wrongLengthType.begin(), wrongLengthType.end()).join(", ") << ") "
       << "which are not from " << lengthTypeToString(ltype) << " type";
   throw GaiaException(msg);
 }

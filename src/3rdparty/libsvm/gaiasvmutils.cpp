@@ -39,8 +39,8 @@ QStringList createClassMapping(const DataSet* dataset,
     throw GaiaException(msg);
   }
 
-  QStringList result = allClasses.toList();
-  qSort(result.begin(), result.end());
+  QStringList result = allClasses.values();
+  std::sort(result.begin(), result.end());
 
   G_INFO("Found the following classes:");
   foreach (QString cname, result) G_INFO(" - " << cname);

@@ -87,7 +87,7 @@ QStringList PointLayout::descriptorNames(const Region& region) const {
   }
 
   // preserve the alphabetical order that got screwed because of the QSet
-  QStringList result = QStringList::fromSet(descs);
+  QStringList result(descs.begin(), descs.end());
   result.sort();
 
   return result;
@@ -339,8 +339,10 @@ void PointLayout::enumerate(const QString& name) {
 
 QStringList PointLayout::symmetricDifferenceWith(const PointLayout& other) const {
   QSet<QString> diff;
-  QSet<QString> desc1 = QSet<QString>::fromList(this->descriptorNames());
-  QSet<QString> desc2 = QSet<QString>::fromList(other.descriptorNames());
+  QStringList names1 = this->descriptorNames();
+  QStringList names2 = other.descriptorNames();
+  QSet<QString> desc1(names1.begin(), names1.end());
+  QSet<QString> desc2(names2.begin(), names2.end());
 
   // get descriptors in this dataset and not the other one
   diff |= (desc1 - desc2);
@@ -356,13 +358,15 @@ QStringList PointLayout::symmetricDifferenceWith(const PointLayout& other) const
     }
   }
 
-  return diff.toList();
+  return diff.values();
 }
 
 QStringList PointLayout::differenceWith(const PointLayout& other) const {
   QSet<QString> diff;
-  QSet<QString> desc1 = QSet<QString>::fromList(this->descriptorNames());
-  QSet<QString> desc2 = QSet<QString>::fromList(other.descriptorNames());
+  QStringList names1 = this->descriptorNames();
+  QStringList names2 = other.descriptorNames();
+  QSet<QString> desc1(names1.begin(), names1.end());
+  QSet<QString> desc2(names2.begin(), names2.end());
 
   // get descriptors in this dataset and not the other one
   diff |= (desc1 - desc2);
@@ -375,7 +379,7 @@ QStringList PointLayout::differenceWith(const PointLayout& other) const {
     }
   }
 
-  return diff.toList();
+  return diff.values();
 }
 
 
@@ -393,8 +397,10 @@ PointLayout PointLayout::operator&(const PointLayout& other) const {
 bool PointLayout::canMorphInto(const PointLayout& targetLayout) const {
   if (*this == targetLayout) return true;
 
-  QSet<QString> desc1 = QSet<QString>::fromList(this->descriptorNames());
-  QSet<QString> desc2 = QSet<QString>::fromList(targetLayout.descriptorNames());
+  QStringList names1 = this->descriptorNames();
+  QStringList names2 = targetLayout.descriptorNames();
+  QSet<QString> desc1(names1.begin(), names1.end());
+  QSet<QString> desc2(names2.begin(), names2.end());
 
   // get descriptors in this dataset and not the other one
   if (!(desc1 - desc2).empty()) return false;

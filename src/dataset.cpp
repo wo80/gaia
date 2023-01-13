@@ -221,10 +221,12 @@ void DataSet::simplifyHistory() {
   PointLayout origLayout = originalLayout();
   PointLayout targetLayout = layout();
 
-  // 1- create an "artifical" Transformation that removes the unneeded descriptors
-  QSet<QString> origDescs = QSet<QString>::fromList(origLayout.descriptorNames());
-  QSet<QString> targetDescs = QSet<QString>::fromList(targetLayout.descriptorNames());
-  QStringList toremove = (origDescs - targetDescs).toList();
+  QStringList origNames = origLayout.descriptorNames();
+  QStringList targetNames = targetLayout.descriptorNames();
+  // 1- create an "artificial" Transformation that removes the unneeded descriptors
+  QSet<QString> origDescs(origNames.begin(), origNames.end());
+  QSet<QString> targetDescs(targetNames.begin(), targetNames.end());
+  QStringList toremove = (origDescs - targetDescs).values();
   toremove.sort();
 
   Transformation t1;

@@ -18,6 +18,7 @@
  */
 
 #include <QFile>
+#include <algorithm>
 #include "frozendataset.h"
 #include "dataset.h"
 #include "utils.h"
@@ -49,7 +50,7 @@ const QString& FrozenDataSet::pointName(int i) const {
 }
 
 int FrozenDataSet::pointIndex(const QString& name) const {
-  QVector<QString>::const_iterator pos = qBinaryFind(_names, name);
+  QVector<QString>::const_iterator pos = std::lower_bound(_names.begin(), _names.end(), name);
   if (pos == _names.constEnd()) {
     throw GaiaException("Unable to find point with id '", name, "'");
   }

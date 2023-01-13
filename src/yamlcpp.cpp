@@ -45,7 +45,11 @@ Node loadFromFile(const QString& filename, bool markQuotedScalars) {
   }
 
   QTextStream stream(&file);
+#if QT_VERSION_MAJOR < 6
   stream.setCodec("UTF-8");
+#else
+  stream.setEncoding(QStringConverter::Utf8);
+#endif
 
   QByteArray asciiStr = stream.readAll().toUtf8();
   return yaml::load(asciiStr.constData(), asciiStr.size(), markQuotedScalars);
@@ -191,30 +195,30 @@ QString errorMessage(const yaml_parser_t& parser) {
   switch (parser.error) {
 
   case YAML_MEMORY_ERROR:
-    msg.sprintf("Memory error: Not enough memory for parsing");
+    msg.asprintf("Memory error: Not enough memory for parsing");
     break;
 
   case YAML_READER_ERROR:
     if (parser.problem_value != -1) {
-      msg.sprintf("Reader error: %s: #%X at %d", parser.problem,
+      msg.asprintf("Reader error: %s: #%X at %d", parser.problem,
                   parser.problem_value, (int)parser.problem_offset);
     }
     else {
-      msg.sprintf("Reader error: %s at %d", parser.problem,
+      msg.asprintf("Reader error: %s at %d", parser.problem,
                   (int)parser.problem_offset);
     }
     break;
 
   case YAML_SCANNER_ERROR:
     if (parser.context) {
-      msg.sprintf("Scanner error: %s at line %d, column %d\n"
+      msg.asprintf("Scanner error: %s at line %d, column %d\n"
                   "%s at line %d, column %d", parser.context,
                   (int)parser.context_mark.line+1, (int)parser.context_mark.column+1,
                   parser.problem, (int)parser.problem_mark.line+1,
                   (int)parser.problem_mark.column+1);
     }
     else {
-      msg.sprintf("Scanner error: %s at line %d, column %d",
+      msg.asprintf("Scanner error: %s at line %d, column %d",
                   parser.problem, (int)parser.problem_mark.line+1,
                   (int)parser.problem_mark.column+1);
     }
@@ -222,14 +226,14 @@ QString errorMessage(const yaml_parser_t& parser) {
 
   case YAML_PARSER_ERROR:
     if (parser.context) {
-      msg.sprintf("Parser error: %s at line %d, column %d\n"
+      msg.asprintf("Parser error: %s at line %d, column %d\n"
                   "%s at line %d, column %d", parser.context,
                   (int)parser.context_mark.line+1, (int)parser.context_mark.column+1,
                   parser.problem, (int)parser.problem_mark.line+1,
                   (int)parser.problem_mark.column+1);
     }
     else {
-      msg.sprintf("Parser error: %s at line %d, column %d",
+      msg.asprintf("Parser error: %s at line %d, column %d",
                   parser.problem, (int)parser.problem_mark.line+1,
                   (int)parser.problem_mark.column+1);
     }
@@ -237,7 +241,7 @@ QString errorMessage(const yaml_parser_t& parser) {
 
   default:
     /* Couldn't happen. */
-    msg.sprintf("Internal error in yaml parsing");
+    msg.asprintf("Internal error in yaml parsing");
     break;
   }
 
@@ -258,20 +262,20 @@ QString emitterErrorMessage(yaml_emitter_t* emitter, const char* location) {
 
   switch (emitter->error) {
   case YAML_MEMORY_ERROR:
-    msg.sprintf("Memory error: Not enough memory for emitting (%s)", location);
+    msg.asprintf("Memory error: Not enough memory for emitting (%s)", location);
     break;
 
   case YAML_WRITER_ERROR:
-    msg.sprintf("Writer error: %s (%s)", emitter->problem, location);
+    msg.asprintf("Writer error: %s (%s)", emitter->problem, location);
     break;
 
   case YAML_EMITTER_ERROR:
-    msg.sprintf("Emitter error: %s (%s)", emitter->problem, location);
+    msg.asprintf("Emitter error: %s (%s)", emitter->problem, location);
     break;
 
   default:
     /* Couldn't happen. */
-    msg.sprintf("Internal error");
+    msg.asprintf("Internal error");
     break;
   }
 
