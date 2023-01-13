@@ -20,7 +20,9 @@
 #include <QRegExp>
 #include <cmath>
 #include <algorithm>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 #include "utils.h"
 using std::abs;
 using std::reverse;
