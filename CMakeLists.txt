@@ -31,4 +31,6 @@ if(ENABLE_TBB)
   find_package(TBB)
 endif()
 
+add_compile_definitions(CPP_11)
+
 add_subdirectory(src)
