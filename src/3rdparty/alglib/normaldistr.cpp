@@ -66,7 +66,7 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************/
-double erf(double x)
+double erf_(double x)
 {
     double result;
     double xsq;
@@ -101,7 +101,7 @@ double erf(double x)
         result = s;
         return result;
     }
-    result = s*(1-erfc(x));
+    result = s*(1-erfc_(x));
     return result;
 }
 
@@ -133,7 +133,7 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************/
-double erfc(double x)
+double erfc_(double x)
 {
     double result;
     double p;
@@ -141,12 +141,12 @@ double erfc(double x)
 
     if( x<0 )
     {
-        result = 2-erfc(-x);
+        result = 2-erfc_(-x);
         return result;
     }
     if( x<0.5 )
     {
-        result = 1.0-erf(x);
+        result = 1.0-erf_(x);
         return result;
     }
     if( x>=10 )
@@ -211,7 +211,7 @@ double normaldistribution(double x)
 {
     double result;
 
-    result = 0.5*(erf(x/1.41421356237309504880)+1);
+    result = 0.5*(erf_(x/1.41421356237309504880)+1);
     return result;
 }
 

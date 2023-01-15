@@ -68,7 +68,7 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************/
-double erf(double x);
+double erf_(double x);
 
 
 /*************************************************************************
@@ -98,7 +98,7 @@ arithmetic   domain     # trials      peak         rms
 Cephes Math Library Release 2.8:  June, 2000
 Copyright 1984, 1987, 1988, 1992, 2000 by Stephen L. Moshier
 *************************************************************************/
-double erfc(double x);
+double erfc_(double x);
 
 
 /*************************************************************************
