@@ -1,4 +1,4 @@
-target_sources(gaia
+target_sources(gaia2
   PRIVATE
     ap.cpp
     chisquaredistr.cpp

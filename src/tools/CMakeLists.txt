@@ -17,7 +17,7 @@ foreach(tool_src ${GAIA_TOOLS})
 
   target_include_directories(${tool} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../metrics)
 
-  target_link_libraries(${tool} PRIVATE gaia)
+  target_link_libraries(${tool} PRIVATE gaia2)
   target_link_libraries(${tool} PRIVATE ${QT_LIBS})
   target_link_libraries(${tool} PRIVATE ${YAML_LIBRARIES})
 endforeach(tool_src ${GAIA_TOOLS})

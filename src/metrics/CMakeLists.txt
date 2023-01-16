@@ -1,6 +1,6 @@
-target_include_directories(gaia PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(gaia2 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_sources(gaia
+target_sources(gaia2
   PRIVATE
     bpfdistance.cpp
     cosineangledistance.cpp

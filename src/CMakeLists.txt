@@ -1,11 +1,11 @@
-add_library(gaia STATIC)
+add_library(gaia2 STATIC)
 
 if(MSVC)
   add_compile_definitions(NOMINMAX)
   add_compile_definitions(_USE_MATH_DEFINES)
   add_compile_options(/W4)
 
-  target_compile_options(gaia PRIVATE /MP)
+  target_compile_options(gaia2 PRIVATE /MP)
 else()
   add_compile_options(-Wall)
 endif()
@@ -14,18 +14,18 @@ if(Qt6_FOUND AND MSVC)
   add_compile_options(/Zc:__cplusplus /permissive-)
 endif()
 
-target_compile_definitions(gaia
+target_compile_definitions(gaia2
   PRIVATE
     GAIA_VERSION="${gaia_VERSION_STRING}"
     GAIA_GIT_SHA="")
 
 include_directories(${EIGEN3_INCLUDE_DIRS})
-target_link_libraries(gaia Eigen3::Eigen)
+target_link_libraries(gaia2 Eigen3::Eigen)
 
 if(TBB_FOUND)
   add_compile_definitions(HAVE_TBB)
   include_directories(${TBB_INCLUDE_DIRS})
-  target_link_libraries(gaia TBB::tbb)
+  target_link_libraries(gaia2 TBB::tbb)
 else()
   message("Building without TBB.")
 endif()
@@ -38,7 +38,7 @@ include_directories(
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-target_sources(gaia
+target_sources(gaia2
   PRIVATE
     convert.cpp
     dataset.cpp
@@ -91,7 +91,7 @@ target_sources(gaia
 
 if(GAIA_USE_YAML)
   include_directories(${YAML_INCLUDE_DIR})
-  target_sources(gaia
+  target_sources(gaia2
      PRIVATE
       yamlcpp.cpp
     PUBLIC
