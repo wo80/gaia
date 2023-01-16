@@ -36,6 +36,8 @@ include_directories(
   ${Qt${QT_VERSION_MAJOR}Core_INCLUDE_DIRS}
   ${Qt${QT_VERSION_MAJOR}Concurrent_INCLUDE_DIRS})
 
+target_link_libraries(gaia2 Qt::Core Qt::Concurrent)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 target_sources(gaia2
@@ -91,6 +93,7 @@ target_sources(gaia2
 
 if(GAIA_USE_YAML)
   include_directories(${YAML_INCLUDE_DIR})
+  target_link_libraries(gaia2 ${YAML_LIBRARIES})
   target_sources(gaia2
      PRIVATE
       yamlcpp.cpp

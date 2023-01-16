@@ -4,9 +4,7 @@ function (gaia_add_test test_src)
   add_executable( ${test} ${test_src} )
   add_test(NAME ${test} COMMAND ${test})
 
-  target_link_libraries(${test} PRIVATE gaia2)
-  target_link_libraries(${test} PRIVATE Qt::Core Qt::Concurrent Qt::Test)
-  target_link_libraries(${test} PRIVATE ${YAML_LIBRARIES})
+  target_link_libraries(${test} PRIVATE gaia2 Qt::Test)
 endfunction()
 
 set(GAIA_TESTS
