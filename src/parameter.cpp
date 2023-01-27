@@ -220,7 +220,11 @@ QList<QPointF> Parameter::toCoords() const {
 
 Parameter::Parameter(const PointLayout& layout) {
   QByteArray buf;
+#if QT_VERSION_MAJOR < 6
   QDataStream buffer(&buf, QIODevice::WriteOnly);
+#else
+  QDataStream buffer(&buf, QIODeviceBase::WriteOnly);
+#endif
   buffer.setVersion(QDataStream::Qt_4_4);
 
   buffer << layout;

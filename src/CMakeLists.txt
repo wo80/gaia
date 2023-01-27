@@ -1,4 +1,7 @@
 add_library(gaia2 STATIC)
+add_library(Gaia2::gaia2 ALIAS gaia2)
+
+set_target_properties(gaia2 PROPERTIES DEBUG_POSTFIX _d)
 
 if(MSVC)
   add_compile_definitions(NOMINMAX)
@@ -38,7 +41,11 @@ include_directories(
 
 target_link_libraries(gaia2 Qt::Core Qt::Concurrent)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(gaia2
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
 target_sources(gaia2
   PRIVATE
@@ -59,7 +66,6 @@ target_sources(gaia2
     timer.cpp
     transformation.cpp
     utils.cpp
-  PUBLIC
     baseexception.h
     convert.h
     dataset.h
@@ -80,25 +86,26 @@ target_sources(gaia2
     queryoptimizer_impl.h
     region.h
     searchspace.h
+    searchspace_impl.h
     searchspacepool.h
     searchspacepool_impl.h
-    searchspace_impl.h
     textprogress.h
     timer.h
     transformation.h
     types.h
     utils.h
     view.h
-    view_impl.h)
+    view_impl.h
+)
 
 if(GAIA_USE_YAML)
   include_directories(${YAML_INCLUDE_DIR})
   target_link_libraries(gaia2 ${YAML_LIBRARIES})
   target_sources(gaia2
-     PRIVATE
+    PRIVATE
       yamlcpp.cpp
-    PUBLIC
-      yamlcpp.h)
+      yamlcpp.h
+  )
 endif()
 
 add_subdirectory(3rdparty)
@@ -106,11 +113,11 @@ add_subdirectory(algorithms)
 add_subdirectory(metrics)
 add_subdirectory(parser)
 
-if (BUILD_TOOLS)
-    add_subdirectory(tools)
-endif ()
+if(BUILD_TOOLS)
+  add_subdirectory(tools)
+endif()
 
-if (BUILD_TESTS AND CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    enable_testing()
-    add_subdirectory(test)
-endif ()
+if(BUILD_TESTS AND CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+  enable_testing()
+  add_subdirectory(test)
+endif()

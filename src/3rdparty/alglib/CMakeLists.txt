@@ -5,7 +5,6 @@ target_sources(gaia2
     gammaf.cpp
     igammaf.cpp
     normaldistr.cpp
-  PUBLIC
     ap.h
     apvt.h
     chisquaredistr.h

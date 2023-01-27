@@ -4,6 +4,5 @@ target_sources(gaia2
   PRIVATE
     gaiasvmutils.cpp
     svm.cpp
-  PUBLIC
     gaiasvmutils.h
     svm.h)

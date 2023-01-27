@@ -10,7 +10,7 @@ foreach(tool_src ${GAIA_TOOLS})
 
   add_executable( ${tool} ${tool_src} )
 
-  target_include_directories(${tool} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../metrics)
+  target_include_directories(${tool} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../metrics)
 
   target_link_libraries(${tool} PRIVATE gaia2)
 endforeach(tool_src ${GAIA_TOOLS})

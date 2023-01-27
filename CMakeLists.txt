@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16.0)
+cmake_minimum_required(VERSION 3.19.0)
 
 project(gaia VERSION 2.4.6
              DESCRIPTION "C++ library for similarity measures and classifications on the results of audio analysis"
@@ -33,4 +33,51 @@ endif()
 
 add_compile_definitions(CPP_11)
 
+include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
+
 add_subdirectory(src)
+
+install(TARGETS gaia2
+  EXPORT Gaia2Targets
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include)
+
+configure_package_config_file(
+  cmake/Gaia2Config.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/Gaia2Config.cmake
+  PATH_VARS CMAKE_INSTALL_INCLUDEDIR
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Gaia2
+)
+
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/Gaia2ConfigVersion.cmake
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
+
+# Maybe not the best idea to install headers this way.
+install(DIRECTORY src/
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/gaia2
+  FILES_MATCHING
+    PATTERN "*.h"
+    PATTERN "3rdparty" EXCLUDE
+    PATTERN "bindings" EXCLUDE
+    PATTERN "doc" EXCLUDE
+    PATTERN "stlfacade" EXCLUDE
+    PATTERN "test" EXCLUDE
+    PATTERN "tools" EXCLUDE
+)
+
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/Gaia2Config.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/Gaia2ConfigVersion.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Gaia2
+)
+
+install(EXPORT Gaia2Targets
+  FILE Gaia2Targets.cmake
+  NAMESPACE Gaia2::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Gaia2)

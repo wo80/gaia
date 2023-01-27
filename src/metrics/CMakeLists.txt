@@ -1,4 +1,8 @@
-target_include_directories(gaia2 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(gaia2
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
 target_sources(gaia2
   PRIVATE
@@ -23,7 +27,6 @@ target_sources(gaia2
     summedsegmentdistance.cpp
     weightedeuclideandistance.cpp
     weightedpearsondistance.cpp
-  PUBLIC
     bpfdistance.h
     cosineangledistance.h
     cosinesimilarity.h
@@ -50,4 +53,5 @@ target_sources(gaia2
     semanticclassifierdistance.h
     summedsegmentdistance.h
     weightedeuclideandistance.h
-    weightedpearsondistance.h)
+    weightedpearsondistance.h
+)

@@ -1,4 +1,8 @@
-target_include_directories(gaia2 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(gaia2
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
 
 target_sources(gaia2
   PRIVATE
@@ -35,7 +39,6 @@ target_sources(gaia2
     selectdesc.cpp
     svmpredict.cpp
     svmtrain.cpp
-  PUBLIC
     addfield.h
     addfieldapplier.h
     algoutils.h
@@ -68,4 +71,5 @@ target_sources(gaia2
     select.h
     selectdesc.h
     svmpredict.h
-    svmtrain.h)
+    svmtrain.h
+)
