@@ -1,3 +1,5 @@
+find_package(Qt5 COMPONENTS Test REQUIRED)
+
 function (gaia_add_test test_src)
   string( REPLACE ".cpp" "" test ${test_src} )
 
