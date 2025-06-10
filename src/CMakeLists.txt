@@ -17,9 +17,6 @@ else()
   add_compile_options(-Wall)
 endif()
 
-if(Qt6_FOUND AND MSVC)
-  add_compile_options(/Zc:__cplusplus /permissive-)
-endif()
 
 target_compile_definitions(gaia2
   PRIVATE
@@ -37,12 +34,7 @@ else()
   message("Building without TBB.")
 endif()
 
-add_definitions(${Qt${QT_VERSION_MAJOR}Concurrent_DEFINITIONS})
-
-include_directories(
-  ${Qt${QT_VERSION_MAJOR}Core_INCLUDE_DIRS}
-  ${Qt${QT_VERSION_MAJOR}Concurrent_INCLUDE_DIRS})
-
+include_directories(gaia2 ${Qt5Core_INCLUDE_DIRS} ${Qt5Concurrent_INCLUDE_DIRS})
 target_link_libraries(gaia2 Qt::Core Qt::Concurrent)
 
 target_include_directories(gaia2

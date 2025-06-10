@@ -19,8 +19,7 @@ option(ENABLE_STATIC_DEPENDENCIES "MSVC only: enable linking against static depe
 
 set(GAIA_USE_YAML OFF)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Concurrent Test REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Concurrent Test REQUIRED)
+find_package(Qt5 COMPONENTS Core Concurrent REQUIRED)
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 find_package(YAML)
 
