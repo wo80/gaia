@@ -1,4 +1,4 @@
-add_library(gaia2 STATIC)
+add_library(gaia2)
 add_library(Gaia2::gaia2 ALIAS gaia2)
 
 set_target_properties(gaia2 PROPERTIES DEBUG_POSTFIX _d)
