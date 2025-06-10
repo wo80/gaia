@@ -15,6 +15,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 option(BUILD_TESTS "Build tests" OFF)
 option(BUILD_TOOLS "Build tools" OFF)
 option(ENABLE_TBB "Enable Intel TBB" OFF)
+option(ENABLE_STATIC_DEPENDENCIES "MSVC only: enable linking against static dependencies" OFF)
 
 set(GAIA_USE_YAML OFF)
 

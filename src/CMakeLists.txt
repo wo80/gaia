@@ -4,9 +4,13 @@ add_library(Gaia2::gaia2 ALIAS gaia2)
 set_target_properties(gaia2 PROPERTIES DEBUG_POSTFIX _d)
 
 if(MSVC)
-  add_compile_definitions(NOMINMAX)
-  add_compile_definitions(_USE_MATH_DEFINES)
+  add_compile_definitions(NOMINMAX _USE_MATH_DEFINES)
   add_compile_options(/W4)
+
+  if (ENABLE_STATIC_DEPENDENCIES)
+    # Necessary to properly set up the __declspec attribute.
+    add_compile_definitions(YAML_DECLARE_STATIC)
+  endif()
 
   target_compile_options(gaia2 PRIVATE /MP)
 else()
